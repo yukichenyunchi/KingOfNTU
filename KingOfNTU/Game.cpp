@@ -115,7 +115,7 @@ void Game::handleEvents()
 void Game::update()
 {
 	frameStart = 60 - (SDL_GetTicks() / 1000);
-	std::cout << frameStart << std::endl;
+	//std::cout << frameStart << std::endl;
 
 
 	Vector2D playerPos = newPlayer.getComponent<TransformComponent>().position;
@@ -214,7 +214,7 @@ void Game::render()
 	}
 	for (auto& pr : projectiles)
 	{
-		std::cout << "asd" << std::endl;
+		//std::cout << "asd" << std::endl;
 		pr->draw();
 	}
 	

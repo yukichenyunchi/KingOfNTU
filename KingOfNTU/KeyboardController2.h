@@ -3,6 +3,11 @@
 #include "ECS.h"
 #include "Components.h"
 #include "GameObject.h"
+#include <iostream>
+using namespace std;
+
+//extern Mix_Chunk* gShoot;
+//extern Mix_Chunk* gShoot;
 
 class KeyboardController2 :public Component
 {
@@ -13,6 +18,7 @@ public:
 	{
 		transform = &entity->getComponent<TransformComponent>();
 		sprite = &entity->getComponent<SpriteComponent>();
+		//gShoot = Mix_LoadWAV("sound/laser-gun-81720.wav");
 	}
 
 	void update() override
@@ -43,6 +49,8 @@ public:
 				sprite->Play("Right");
 				break;
 			case SDLK_l:
+				/*cout << gMusic << endl;
+				cout<< Mix_PlayChannel(-1, gShoot, 1)<<endl;*/
 				Game::p2shoot = true;
 				break;
 			case SDLK_k:

@@ -44,5 +44,3 @@ public:
 private:
     SDL_Texture* mTexture;
 };
-extern LTexture gKeyPressSurfaces[KEY_PRESS_TOTAL];
-

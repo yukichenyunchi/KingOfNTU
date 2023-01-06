@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include <stdio.h>
 #include "LWindow.h"
 #include "LTexture.h"
@@ -42,6 +43,8 @@ bool quit = 1;
 //bool *getidsuccess = false;
 GetID getid;
 int p1 = 0, p2 = 0;
+//The sound effects that will be used
+//Mix_Chunk* gShoot = NULL;
 
 
 bool init()
@@ -69,6 +72,11 @@ bool init()
             printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
             success = false;
         }
+        /*if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+        {
+            printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+            success = false;
+        }*/
         else
         {
             gRenderer = gWindow.createRenderer();
@@ -107,6 +115,21 @@ bool loadMedia()
         printf("Failed to load font! SDL_ttf Error: %s\n", TTF_GetError());
         success = false;
     }
+    //Load music
+   /* gMusic = Mix_LoadMUS("sound/epic_battle_music_1-6275.wav");
+    if (gMusic == NULL)
+    {
+        printf("Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError());
+        success = false;
+    }*/
+
+    //Load sound effects
+   /* gShoot = Mix_LoadWAV("sound/laser-gun-81720.wav");
+    if (gShoot == NULL)
+    {
+        printf("Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError());
+        success = false;
+    }*/
     return success;
 }
 
@@ -170,9 +193,9 @@ void putMedia(scenario s)
                 p1 = getid.getp1();
             }
 
-            cout << p1 << "," << p2 << endl;
+            //cout << p1 << "," << p2 << endl;
         }
-            cout << p1 << "," << p2 << endl;
+            //cout << p1 << "," << p2 << endl;
             if (p1 != 0 && p2 != 0) {
                 gamemode = 0;
             }
@@ -246,6 +269,9 @@ void close()
     RuleTexture.free();
     SDL_DestroyRenderer(gRenderer);
     gWindow.free();
+    //Free the sound effects
+    /*Mix_FreeChunk(gShoot);
+    gShoot = NULL;*/
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
@@ -346,20 +372,6 @@ int main(int argc, char* args[]) {
 
             }
             while (gamemode == 0 && quit == 1) {
-                //need to handle quit again
-                //game.getIDfromUser();
-                //if (game.success == 0)
-                //{
-                //    cout << "inside";
-                //    s = playing;
-                //    //Clear screen
-                //    SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-                //    SDL_RenderClear(gRenderer);
-                //    //change page
-                //    putMedia(s);
-                //    SDL_RenderPresent(gRenderer);
-                //    game.success = 1;
-                //}
                 s = playing;
                 SDL_RenderClear(gRenderer);
                 

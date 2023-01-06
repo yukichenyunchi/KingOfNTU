@@ -177,14 +177,14 @@ public:
 	void PrintEntity()
 	{
 		int count = 0;
-		std::cout << "Num: " << entities.size() << std::endl;
+		//std::cout << "Num: " << entities.size() << std::endl;
 		for (auto& entity : entities)
 		{
 
 		}
 
 
-		std::cout << count << std::endl;
+		//std::cout << count << std::endl;
 	}
 
 };

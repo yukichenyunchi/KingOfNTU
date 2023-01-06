@@ -2,16 +2,33 @@
 #include "Game.h"
 #include "ECS.h"
 #include "Components.h"
+#include "SDL_mixer.h"
+#include <iostream>
+using namespace std;
+
 
 class KeyboardController1 :public Component
 {
 public:
 	TransformComponent* transform;
 	SpriteComponent* sprite;
+	Mix_Chunk* gSound = NULL;
 	void init() override
 	{
 		transform = &entity->getComponent<TransformComponent>();
 		sprite = &entity->getComponent<SpriteComponent>();
+
+		//if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+		//{
+		//	printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+		//}
+		////cout << gSound << endl;
+		//gSound = Mix_LoadWAV("sound/laser-gun-81720.wav");
+		//cout << gSound << endl;
+		/*if (!gShoot) {
+			cout << "Failed to load music or sound: " << Mix_GetError() << endl;
+		}
+		else cout << "music check" << endl;*/
 	}
 
 	void update() override
@@ -42,6 +59,20 @@ public:
 				sprite->Play("Right");
 				break;
 			case SDLK_t:
+				/*if (!Mix_PlayChannel(-1, gSound, 0)) {
+					cout << "Failed to load music or sound: " << Mix_GetError() << endl;
+				}*/
+				if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+				{
+					printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+				}
+				//cout << gSound << endl;
+				gSound = Mix_LoadWAV("./sound/laser-gun-81720.wav");
+				if (!Mix_PlayChannel(-1, gSound, 0)) {
+					cout << "Failed to load music or sound: " << Mix_GetError() << endl;
+				}
+				Mix_FreeChunk(gSound);
+				gSound = NULL;
 				Game::p1shoot = true;
 				break;
 			case SDLK_f:
